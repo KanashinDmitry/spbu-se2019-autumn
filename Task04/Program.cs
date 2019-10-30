@@ -91,7 +91,7 @@ namespace Task04
         
         static MatchCollection GetUrls(string webData)
         {
-            const string pattern = @"<a([^>]*)href=""https?://.*"">";
+            const string pattern = @"<a\s([^>]*)href=""https?://.*"">";
             Regex regex = new Regex(pattern);
             return regex.Matches(webData);
         }
