@@ -64,8 +64,10 @@ namespace Task04
             {
                 WebRequest request = WebRequest.Create(url);
                 WebResponse response = await GetResponseAsync(request);
+                
                 using Stream stream = response.GetResponseStream();
                 using StreamReader reader = new StreamReader(stream);
+                
                 webData = await reader.ReadToEndAsync();
 
                 response.Close();
