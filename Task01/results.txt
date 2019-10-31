@@ -1,0 +1,30 @@
+Matrix size 25 
+                           -sequential solution	 0.000018 
+                           -gsl solution	 0.000006 
+                           -parallel solution	 0.000018 
+
+Matrix size 50 
+                           -sequential solution	 0.000121 
+                           -gsl solution	 0.000031 
+                           -parallel solution	 0.000122 
+
+Matrix size 100 
+                           -sequential solution	 0.000917 
+                           -gsl solution	 0.000207 
+                           -parallel solution	 0.000918 
+
+Matrix size 500 
+                           -sequential solution	 0.108078 
+                           -gsl solution	 0.022360 
+                           -parallel solution	 0.108548 
+
+Matrix size 1000 
+                           -sequential solution	 0.857289 
+                           -gsl solution	 0.184708 
+                           -parallel solution	 0.866151 
+
+Matrix size 2000 
+                           -sequential solution	 7.115330 
+                           -gsl solution	 2.265792 
+                           -parallel solution	 7.203222 
+
