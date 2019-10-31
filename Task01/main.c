@@ -117,8 +117,8 @@ int check_results(int matrix_size)
 void write_results(int eq_vectors_flag, int matrix_size)
 {
     FILE *output_file;
-    if ((output_file = fopen("res1.txt", "a+")) == NULL) {
-        printf("Error: res1.txt file cannot be open");
+    if ((output_file = fopen("results.txt", "a+")) == NULL) {
+        printf("Error: results.txt file cannot be open");
         exit(2);
     }
     
