@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading;
 
 namespace Task03
@@ -13,27 +14,15 @@ namespace Task03
             while (IsGetting)
             {
                 SharedRes<T>.empty.WaitOne();
-                SharedRes<T>.mtx.WaitOne();
+                SharedRes<T>.mConsumer.WaitOne();
 
-                if (IsGetting)
-                {
-                    T removed = SharedRes<T>.Data[0];
-                    SharedRes<T>.Data.RemoveAt(0);
-                    Console.WriteLine($"Consumer withdrew {removed} by thread {Thread.CurrentThread.ManagedThreadId}");
-                }
-                else
-                {
-                    SharedRes<T>.mtx.ReleaseMutex();
-                    SharedRes<T>.empty.Release();
-                    return;
-                }
-
-                if (++SharedRes<T>.AmountWithdraws % 2 == 0)
-                {
-                    Thread.Sleep(500);
-                }
+                T removed = SharedRes<T>.Data[0];
+                SharedRes<T>.Data.RemoveAt(0);
+                Console.WriteLine($"Consumer withdrew {removed} by thread {Thread.CurrentThread.ManagedThreadId}");
                 
-                SharedRes<T>.mtx.ReleaseMutex();
+                Thread.Sleep(500);
+
+                SharedRes<T>.mConsumer.ReleaseMutex();
                 SharedRes<T>.empty.Release();
             }
         }
