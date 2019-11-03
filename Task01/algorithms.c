@@ -43,8 +43,6 @@ void imp_gsl(double *matrix, double *const_vector, double *result_vector, int ma
 
 void imp_par(double *matrix, double *const_vector, double *result_vector, int matrix_size)
 {    
-    omp_set_num_threads(omp_get_num_threads());
-
     for (int k = 0; k < matrix_size - 1; k++)
     {
         double pivot = matrix[k * matrix_size + k];
