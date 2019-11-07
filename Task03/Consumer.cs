@@ -13,17 +13,23 @@ namespace Task03
         {
             while (IsGetting)
             {
-                SharedRes<T>.empty.WaitOne();
-                SharedRes<T>.mConsumer.WaitOne();
+                SharedRes<T>.Empty.WaitOne();
 
-                T removed = SharedRes<T>.Data[0];
-                SharedRes<T>.Data.RemoveAt(0);
+                if (!IsGetting)
+                {
+                    break;
+                }
+                
+                SharedRes<T>.MConsumer.WaitOne();
+
+                T removed = SharedRes<T>.Data[^1];
+                SharedRes<T>.Data.RemoveAt(SharedRes<T>.Data.Count - 1);
                 Console.WriteLine($"Consumer withdrew {removed} by thread {Thread.CurrentThread.ManagedThreadId}");
                 
                 Thread.Sleep(500);
 
-                SharedRes<T>.mConsumer.ReleaseMutex();
-                SharedRes<T>.empty.Release();
+                SharedRes<T>.MConsumer.ReleaseMutex();
+                SharedRes<T>.Empty.Release();
             }
         }
     }

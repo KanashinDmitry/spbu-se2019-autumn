@@ -5,7 +5,6 @@ namespace Task03
 {
     public class Producer<T>
     {
-        private static bool isNeedPause = false;
         private static bool isInserting = true;
         public static void StopInserting() => isInserting = false;
 
@@ -13,7 +12,7 @@ namespace Task03
         {
             while (isInserting)
             {
-                SharedRes<T>.mProducer.WaitOne();
+                SharedRes<T>.MProducer.WaitOne();
 
                 SharedRes<T>.Data.Add(value);
                 
@@ -21,8 +20,8 @@ namespace Task03
                 
                 Thread.Sleep(500);
 
-                SharedRes<T>.empty.Release();
-                SharedRes<T>.mProducer.ReleaseMutex();
+                SharedRes<T>.Empty.Release();
+                SharedRes<T>.MProducer.ReleaseMutex();
             }
         }
     }

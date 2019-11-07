@@ -5,8 +5,8 @@ namespace Task03
 {
     class Program
     {
-        private static int amountConsumers = 8;
-        private static int amountProducers = 8;
+        private static int amountConsumers = 80;
+        private static int amountProducers = 80;
 
         static void CreateProducers()
         {
@@ -30,15 +30,19 @@ namespace Task03
             }
         }
 
-        static void Main(string[] args)
+        static void Main()
         {
             CreateProducers();
             CreateConsumers();
             
             Console.ReadKey();
 
-            Consumer<int>.StopGetting();
             Producer<int>.StopInserting();
+            Consumer<int>.StopGetting();
+            for (int i = 0; i < amountConsumers; ++i)
+            {
+                SharedRes<int>.Empty.Release();
+            }
         }
     }
 }
