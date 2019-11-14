@@ -14,11 +14,17 @@ namespace Task03
             {
                 SharedRes<T>.MProducer.WaitOne();
 
+                if (!isInserting)
+                {
+                    SharedRes<T>.MProducer.ReleaseMutex();
+                    break;
+                }
+                
                 SharedRes<T>.Data.Add(value);
                 
                 Console.WriteLine($"Producer added {value} by thread {Thread.CurrentThread.ManagedThreadId}");
                 
-                Thread.Sleep(500);
+                Thread.Sleep(SharedRes<T>.TimeoutProducer);
 
                 SharedRes<T>.Empty.Release();
                 SharedRes<T>.MProducer.ReleaseMutex();
