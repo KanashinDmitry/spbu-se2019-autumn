@@ -1,30 +1,30 @@
 Matrix size 25 
-                           -sequential solution	 0.000018 
-                           -gsl solution	 0.000006 
-                           -parallel solution	 0.000018 
+                           -sequential solution	 0.000007 
+                           -gsl solution	 0.000012 
+                           -parallel solution	 0.000005 
 
 Matrix size 50 
-                           -sequential solution	 0.000121 
-                           -gsl solution	 0.000031 
-                           -parallel solution	 0.000122 
+                           -sequential solution	 0.000046 
+                           -gsl solution	 0.000054 
+                           -parallel solution	 0.000031 
 
 Matrix size 100 
-                           -sequential solution	 0.000917 
-                           -gsl solution	 0.000207 
-                           -parallel solution	 0.000918 
+                           -sequential solution	 0.000339 
+                           -gsl solution	 0.000355 
+                           -parallel solution	 0.000194 
 
 Matrix size 500 
-                           -sequential solution	 0.108078 
-                           -gsl solution	 0.022360 
-                           -parallel solution	 0.108548 
+                           -sequential solution	 0.040359 
+                           -gsl solution	 0.039389 
+                           -parallel solution	 0.024066 
 
 Matrix size 1000 
-                           -sequential solution	 0.857289 
-                           -gsl solution	 0.184708 
-                           -parallel solution	 0.866151 
+                           -sequential solution	 0.313993 
+                           -gsl solution	 0.314182 
+                           -parallel solution	 0.198364 
 
 Matrix size 2000 
-                           -sequential solution	 7.115330 
-                           -gsl solution	 2.265792 
-                           -parallel solution	 7.203222 
+                           -sequential solution	 2.897531 
+                           -gsl solution	 2.854636 
+                           -parallel solution	 2.379095 
 

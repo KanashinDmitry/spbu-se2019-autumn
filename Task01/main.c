@@ -5,7 +5,7 @@
 #include "algorithms.h"
 
 #define NUM_WAYS 3
-#define EPSILON 1e6
+#define EPSILON 1e9
 
 int num_replies;
 
