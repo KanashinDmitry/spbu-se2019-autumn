@@ -11,8 +11,7 @@ namespace Graphs
 
             int[,] graph = graphInit.GenerateGraphWithEdges();
 
-            using (StreamWriter writer = new StreamWriter(Paths.PathInitGraph, false
-                , System.Text.Encoding.Default))
+            using (var writer = new StreamWriter(Paths.PathInitGraph, false, System.Text.Encoding.Default))
             {
                 graphInit.PrintGraph(graph, graphInit.Size, writer);
             }
