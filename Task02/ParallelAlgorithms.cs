@@ -144,12 +144,6 @@ namespace Graphs
 
                 used[indexLowestWeight] = true;
 
-                if (selEdge[indexLowestWeight] != -1)
-                {
-                    mst.Add(new Edge(indexLowestWeight, selEdge[indexLowestWeight]
-                                    , minEdge[indexLowestWeight]));
-                }
-                
                 completed = 0;
                 for (int chunk = 0; chunk < chunks; ++chunk)
                 {
