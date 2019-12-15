@@ -37,12 +37,14 @@ void check_content_equals(int* array, int* other, unsigned long size, char* type
         }
         if (!elements_less)
         {
-            printf("Sorted array on %s with size %ld hasn't some elements which contain in initial array\n", type, size);
+            printf("Sorted array on %s with size %ld hasn't some elements \
+                    which contain in initial array\n", type, size);
             return;
         }
         if (!elements_more)
         {
-            printf("Sorted array on %s with size %ld has some elements which doesn't contain in initial array\n", type, size);
+            printf("Sorted array on %s with size %ld has some elements \
+                    which doesn't contain in initial array\n", type, size);
             return;
         }
     }

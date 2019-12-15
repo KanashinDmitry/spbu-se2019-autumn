@@ -26,7 +26,6 @@ int main(char* args)
         
         for (int i = 0; i < 20; i++)
         {
-            
             memcpy(temp_array, array, size_mem_array);
             
             start = clock();

@@ -33,8 +33,11 @@ void swap_gpu(int* array, int first, int second)
 __global__
 void bitonic_exchange_gpu(int* dev_values, int depth, unsigned long step)
 {
-    unsigned int i, pair_for_i; /* Sorting partners: i and pair_for_i */
-    unsigned int orient_i, orient_pair_for_i; /* Orient tells in which part of bitonic (sub-)sequence elements are (descending or ascending) */
+    /* Sorting partners: i and pair_for_i */
+    unsigned int i, pair_for_i; 
+    
+    /* Orient tells in which part of bitonic (sub-)sequence elements are (descending or ascending) */
+    unsigned int orient_i, orient_pair_for_i; 
 
     i = threadIdx.x + blockDim.x * blockIdx.x;
     pair_for_i = i + depth;
@@ -84,7 +87,8 @@ void bitonic_sort_gpu(int* array, unsigned long size)
 
     for (int step = 2; step <= size; step <<= 1)
     {
-        for (int depth = step >> 1; depth >= 1; depth >>= 1){
+        for (int depth = step >> 1; depth >= 1; depth >>= 1)
+        {
             bitonic_exchange_gpu<<<blocks, threadsPerBlock>>>(array_gpu, depth , step);
         }
 	}
