@@ -15,11 +15,6 @@ inline void gpu_assert(cudaError_t code, const char *file, int line, bool abort=
    }
 }
 
-bool is_power_two(int num)
-{
-    return num & (num-1) == 0;
-}
-
 void swap(int* array, int first, int second)
 {   
     int tmp = array[first];
@@ -135,36 +130,12 @@ void bitonic_exchange(int* array, int depth, int step, unsigned long size)
 }
 
 void bitonic_sort(int* array, unsigned long size)
-{
-    unsigned long extra_size = size;
-    
-    if (!is_power_two(size))
-    {
-        int maxValue = (int) size * 10 + 1;
-        
-        extra_size = 1;
-        while (extra_size < size)
-        {
-            extra_size <<= 1;
-        }
-
-        array = (int *) realloc(array, extra_size*sizeof(int));
-        for (int i = size; i < extra_size; i++)
-        {
-            array[i] = maxValue;
-        }
-    }
-    
+{   
     for (int step = 2; step <= size; step <<= 1)
     {
         for (int j = step >> 1 ; j >= 1; j >>= 1)
         {
-            bitonic_exchange(array, j, step, extra_size);
+            bitonic_exchange(array, j, step, size);
         }
-    }
-
-    if (extra_size > size)
-    {
-        array = (int *) realloc(array, size*sizeof(int));
     }
 }
