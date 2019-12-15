@@ -5,8 +5,10 @@
 #include "bitonic_sorts.cuh"
 #include "utils.cuh"
 
-void check_sort(int* array, unsigned long size, char* type){
-    for (int i=0 ; i < size - 1; i++) {
+void check_sort(int* array, unsigned long size, char* type)
+{
+    for (int i=0 ; i < size - 1; i++)
+    {
         if (array[i] > array[i + 1]){
             fprintf(stderr, "Array on %s with size %ld sorted incorrectly\n", type, size);
             return;
@@ -15,13 +17,15 @@ void check_sort(int* array, unsigned long size, char* type){
     printf("Array on %s with size %ld sorted right\n", type, size);
 }
 
-void check_content_equals(int* array, int* other, unsigned long size, char* type){
+void check_content_equals(int* array, int* other, unsigned long size, char* type)
+{
     bool elements_less = false;
     bool elements_more = false;
     
     for (int i = 0; i < size; i++)
     {
-        for (int j = 0; j < size; j++){
+        for (int j = 0; j < size; j++)
+        {
             if (array[i] == other[j])
             {
                 elements_less = true;
@@ -45,12 +49,14 @@ void check_content_equals(int* array, int* other, unsigned long size, char* type
     printf("Sorted array on %s with size %ld has equal content as initial array\n", type, size);
 }
 
-int main(){
+int main()
+{
     unsigned long upperBound = 1024 << 10;
     char* typeCPU = "CPU";
     char* typeGPU = "GPU";    
 
-    for (unsigned long size = 1; size <= upperBound; size <<= 1){
+    for (unsigned long size = 1; size <= upperBound; size <<= 1)
+    {
         srand(time(NULL));
 
         size_t size_mem_array = upperBound*sizeof(int);

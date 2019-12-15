@@ -5,11 +5,13 @@
 #include "bitonic_sorts.cuh"
 #include "utils.cuh"
 
-int main(char* args){
+int main(char* args)
+{
     clock_t start;
     unsigned long upperBound = 1024 << 13;
     
-    for (unsigned size = 1024; size <= upperBound; size <<= 1){        
+    for (unsigned size = 1024; size <= upperBound; size <<= 1)
+    {        
         srand(time(NULL));
         
         size_t size_mem_array = size*sizeof(int);
@@ -22,7 +24,8 @@ int main(char* args){
 
         generate_random_array(array, size);
         
-        for (int i = 0; i < 20; i++){
+        for (int i = 0; i < 20; i++)
+        {
             
             memcpy(temp_array, array, size_mem_array);
             
