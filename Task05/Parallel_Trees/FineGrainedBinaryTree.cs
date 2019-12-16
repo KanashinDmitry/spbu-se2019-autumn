@@ -7,22 +7,22 @@ namespace Parallel_Trees
         where K : IComparable
         where V : struct
     {
+        private readonly Mutex _rootMutex = new Mutex();
+        
         public override Node Insert(K key, V value)
         {
-            Mutex rootMutex = new Mutex();
-
-            rootMutex.WaitOne();
+            _rootMutex.WaitOne();
             try
             {
                 if (Root == null)
                 {
-                    Root = CreateNode(key, value, null);
+                    Root = new Node(key, value, null);
                     return Root;
                 }
             }
             finally
             {
-                rootMutex.ReleaseMutex();
+                _rootMutex.ReleaseMutex();
             }
 
 
@@ -39,11 +39,11 @@ namespace Parallel_Trees
                         {
                             if (currNode.RightSon == null)
                             {
-                                currNode.RightSon = CreateNode(key, value, currNode);
+                                currNode.RightSon = new Node(key, value, currNode);
                                 return currNode.RightSon;
                             }
 
-                            currNode.RightSon?.Mtx.WaitOne();
+                            currNode.RightSon.Mtx.WaitOne();
                             currNode.Mtx.ReleaseMutex();
 
                             currNode = currNode.RightSon;
@@ -55,11 +55,11 @@ namespace Parallel_Trees
                         {
                             if (currNode.LeftSon == null)
                             {
-                                currNode.LeftSon = CreateNode(key, value, currNode);
+                                currNode.LeftSon = new Node(key, value, currNode);
                                 return currNode.LeftSon;
                             }
 
-                            currNode.LeftSon?.Mtx.WaitOne();
+                            currNode.LeftSon.Mtx.WaitOne();
                             currNode.Mtx.ReleaseMutex();
 
                             currNode = currNode.LeftSon;
@@ -89,9 +89,7 @@ namespace Parallel_Trees
 
         private (Node, bool) StandardFind(K key, Func<Node, (Node, bool)> func)
         {
-            var rootMutex = new Mutex();
-
-            rootMutex.WaitOne();
+            _rootMutex.WaitOne();
             try
             {
                 if (Root == null)
@@ -105,7 +103,7 @@ namespace Parallel_Trees
             }
             finally
             {
-                rootMutex.ReleaseMutex();
+                _rootMutex.ReleaseMutex();
             }
 
             var currNode = Root;
@@ -173,26 +171,40 @@ namespace Parallel_Trees
             {
                 try
                 {
+                    parent?.Mtx.WaitOne();
+
                     if (!ChangeRootOptional(currNode, rightS))
                     {
                         parent?.ChangeSon(isCurrLeftSon, rightS);
                     }
 
                     return (rightS, true);
-                } finally{ rightS?.Mtx.ReleaseMutex(); }
+                }
+                finally
+                {
+                    rightS?.Mtx.ReleaseMutex();
+                    parent?.Mtx.WaitOne();
+                }
             }
 
             if (rightS == null && leftS.RightSon == null)
             {
                 try
                 {
+                    parent?.Mtx.WaitOne();
+                    
                     if (!ChangeRootOptional(currNode, leftS))
                     {
                         parent?.ChangeSon(isCurrLeftSon, leftS);
                     }
 
                     return (leftS, true);
-                } finally{ leftS.Mtx.ReleaseMutex(); }
+                } 
+                finally
+                { 
+                    leftS.Mtx.ReleaseMutex();
+                    parent?.Mtx.WaitOne();
+                }
             }
 
             if (rightS?.LeftSon == null && leftS?.RightSon == null)
@@ -230,11 +242,7 @@ namespace Parallel_Trees
                 leftD = leftD.RightSon;
             }
 
-            var isDeeperRight = rightD?.LeftSon switch
-            {
-                null => false,
-                _ => true
-            };
+            var isDeeperRight = rightD?.LeftSon != null;
 
             if (isDeeperRight)
             {

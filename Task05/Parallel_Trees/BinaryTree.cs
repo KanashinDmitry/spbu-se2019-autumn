@@ -43,9 +43,6 @@ namespace Parallel_Trees
             }
         }
 
-        protected Node CreateNode(K key, V value, Node parent)
-            => new Node(key, value, parent);
-
         internal Node? Root;
 
         public abstract Node Insert(K key, V value);

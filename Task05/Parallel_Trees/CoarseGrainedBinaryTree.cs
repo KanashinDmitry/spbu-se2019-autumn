@@ -16,7 +16,7 @@ namespace Parallel_Trees
             {
                 if (Root == null)
                 {
-                    Root = CreateNode(key, value, null);
+                    Root = new Node(key, value, null);
                     return Root;
                 }
 
@@ -30,7 +30,7 @@ namespace Parallel_Trees
                         {
                             if (currNode.RightSon == null)
                             {
-                                currNode.RightSon = CreateNode(key, value, currNode);
+                                currNode.RightSon = new Node(key, value, currNode);
                                 return currNode.RightSon;
                             }
 
@@ -43,7 +43,7 @@ namespace Parallel_Trees
                         {
                             if (currNode.LeftSon == null)
                             {
-                                currNode.LeftSon = CreateNode(key, value, currNode);
+                                currNode.LeftSon = new Node(key, value, currNode);
                                 return currNode.LeftSon;
                             }
 
@@ -180,11 +180,7 @@ namespace Parallel_Trees
                 leftD = leftD.RightSon;
             }
 
-            var isDeeperRight = rightD?.LeftSon switch
-            {
-                null => false,
-                _ => true
-            };
+            var isDeeperRight = rightD?.LeftSon != null;
 
             if (isDeeperRight)
             {
