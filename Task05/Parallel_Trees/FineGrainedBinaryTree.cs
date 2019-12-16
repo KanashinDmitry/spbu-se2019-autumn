@@ -255,12 +255,15 @@ namespace Parallel_Trees
 
                     rightD = rightD.LeftSon;
                 }
+                
+                rightD?.RightSon?.Mtx.WaitOne();
 
                 rightD.Parent.ChangeSon(true, rightD.RightSon);
 
                 currNode.Key = rightD.Key;
                 currNode.Value = rightD.Value;
-
+                
+                rightD?.RightSon?.Mtx.ReleaseMutex();
                 rightD.Mtx.ReleaseMutex();
             }
             else
@@ -275,11 +278,14 @@ namespace Parallel_Trees
                     leftD = leftD.RightSon;
                 }
 
+                leftD?.LeftSon?.Mtx.WaitOne();
+
                 leftD?.Parent.ChangeSon(false, leftD.LeftSon);
 
                 currNode.Key = leftD.Key;
                 currNode.Value = leftD.Value;
-
+                
+                leftD?.LeftSon?.Mtx.ReleaseMutex();
                 leftD.Mtx.ReleaseMutex();
             }
 
