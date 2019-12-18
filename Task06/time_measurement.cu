@@ -5,7 +5,7 @@
 #include "bitonic_sorts.cuh"
 #include "utils.cuh"
 
-#define AMOUNT_MEASUREMENTS = 20
+#define AMOUNT_MEASUREMENTS 20
 
 int main(char* args)
 {
@@ -32,16 +32,19 @@ int main(char* args)
             
             start = clock();
             bitonic_sort(temp_array, size);
-            timeCPU += ((double) (clock() - start)) / CLOCKS_PER_SEC;
+            timeCPU += ((double) (clock() - start));
 
             memcpy(temp_array, array, size_mem_array);
 
             start = clock();
             bitonic_sort_gpu(temp_array, size);
-            timeGPU += ((double) (clock() - start)) / CLOCKS_PER_SEC;
+            timeGPU += ((double) (clock() - start));
         }
 
-        printf("%ld %f %f\n", size, timeGPU / AMOUNT_MEASUREMENTS, timeCPU / AMOUNT_MEASUREMENTS);
+        double avg_timeCPU = timeCPU  / CLOCKS_PER_SEC / AMOUNT_MEASUREMENTS;
+        double avg_timeGPU = timeGPU  / CLOCKS_PER_SEC / AMOUNT_MEASUREMENTS;
+
+        printf("%ld %f %f\n", size, avg_timeCPU, avg_timeGPU);
         
         free(array);
         free(temp_array);
